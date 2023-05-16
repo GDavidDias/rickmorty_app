@@ -1,0 +1,32 @@
+.divCard {
+    padding: 5px;
+    font-size:smaller;
+    border: 1px solid black;
+    border-radius: 10px;
+    background-color: #fcff4f;
+    width: 15vw;
+    height: 38vw;
+    margin: 1%;
+    box-shadow: 0 0 10px black;
+    &:hover{
+      box-shadow: 0 0 5px grey;
+    }
+  }
+
+.divCard img{
+    width: 80%;
+    object-fit: cover;
+    margin: 15px;
+}
+.button{
+  margin: 2px 2px 0 0;
+  border-radius: 3px;
+  background-color: pink;
+  color: red;
+  box-shadow: 0 3px 3px black;
+  &:hover{
+    background-color: red;
+    color: pink;
+    box-shadow: 0 2px 2px white;
+  }
+}

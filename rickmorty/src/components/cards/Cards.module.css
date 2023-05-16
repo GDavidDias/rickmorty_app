@@ -1,0 +1,15 @@
+.listCards {
+    display: flex;
+    flex-Wrap: wrap;
+    /* flex-direction: row; */
+    align-items: center;
+    justify-content: space-evenly;
+    
+    
+    
+    
+    /* padding: 1em; */
+    /* margin: 5px; */
+    /* font-weight: 500; */
+    /* border-radius: 5%; */
+  }
