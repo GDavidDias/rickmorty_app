@@ -1,5 +1,6 @@
 .App {
-   background-image: linear-gradient(rgba(173, 253, 173, 0.5), rgba(255, 0, 0, 0.5));
+   /* background-image: linear-gradient(rgba(173, 253, 173, 0.5), rgba(255, 0, 0, 0.5)); */
+   background-image: url(https://www.xtrafondos.com/thumbs/1_6344.jpg);
    text-align: center;
    /* background-color: green; */
    width: 100%;
