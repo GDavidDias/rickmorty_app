@@ -1,0 +1,17 @@
+.contenedor{
+    display: flex;
+    flex-direction: row;
+}
+.data{
+    color: blanchedalmond;
+    flex-grow: 5;
+    
+}
+.image{
+    flex-grow: 5;
+}
+.image img{
+    width:300px;
+    height:300px;
+    border-radius:150px;
+}

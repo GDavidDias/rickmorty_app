@@ -5,12 +5,16 @@ import Cards from './components/cards/Cards.jsx';
 import Nav from './components/nav/Nav';
 import SearchBar from './components/searchBar/SearchBar.jsx';
 import axios from "axios";
-import {Routes} from "react-router-dom"
+import {Navigate, Route, Routes} from "react-router-dom"
+import About from './components/about/About';
+import Detail from './components/detail/Detail';
+import NotFound from './components/notfound/NotFound';
 
 //import characters, { Rick } from './data.js';
 //import characters from './data.js';
 
 function App() {
+   
 
    const [characters,setCharacters]=useState([]);
    //3- ir guardando en characters los objetos = [{-},{-}]
@@ -97,11 +101,20 @@ function App() {
                onInsert={onInsert}
             />
          </div>
+         <hr/>
          <div>
-            <Cards 
-               characters={characters} 
-               onClose={onClose}
-            />
+            <Routes>
+               <Route exact path='/home' element={
+                  <Cards 
+                  characters={characters} 
+                  onClose={onClose}
+               />
+               } />
+               <Route exact path='/about' element={<About/>} />
+               <Route exact path='/detail/:id' element={<Detail/>}/>
+               <Route exact path='/notfound' element={<NotFound/>}/>
+               <Route exact path='*' element={<Navigate to="/notfound" replace/>}/>
+            </Routes>
          </div>
       </div>
    );

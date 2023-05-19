@@ -1,16 +1,16 @@
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import SearchBar from "../searchBar/SearchBar";
 import style from "./Nav.module.css"
 
 export default function Nav(props){
     return(
         <div>
-            <Link to="/about">
-                <button>About</button>
-            </Link>
-            <Link to="/home">
-                <button>Home</button>
-            </Link>
+            <button>
+                <NavLink to="/About">About</NavLink>
+            </button>
+            <button>
+                <NavLink to={"/Home"}>Home</NavLink>
+            </button>
             <div className={style.button}>
                 <button
                     onClick={()=>props.onInsert()}
