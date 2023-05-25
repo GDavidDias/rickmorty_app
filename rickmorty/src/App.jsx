@@ -5,10 +5,12 @@ import Cards from './components/cards/Cards.jsx';
 import Nav from './components/nav/Nav';
 import SearchBar from './components/searchBar/SearchBar.jsx';
 import axios from "axios";
-import {Navigate, Route, Routes} from "react-router-dom"
+import {Navigate, Route, Routes, useLocation, useNavigate} from "react-router-dom"
 import About from './components/about/About';
 import Detail from './components/detail/Detail';
 import NotFound from './components/notfound/NotFound';
+import Form from './components/form/Form';
+import Favorites from './components/favorites/Favorites';
 
 //import characters, { Rick } from './data.js';
 //import characters from './data.js';
@@ -51,7 +53,7 @@ function App() {
             //------------------------------
             //EXTRA homework 03
             //Para buscar el ID Y NO GUARDAR REPETIDOS
-            const guarda=true;
+            let guarda=true;
             characters.forEach(pers=>{
                if(pers.id == Number(id)){
                   guarda = false;
@@ -93,15 +95,34 @@ function App() {
       setCharacters(characterfiltrados);
    }
 
+   const location = useLocation()
+   console.log(location.pathname)
+
+   const [access, setAccess] = useState(false)
+   const EMAIL = "gdd@gmail.com";
+   const PASSWORD = "123456";
+
+   const navigate = useNavigate();
+   
+   function login(userData){
+      if(userData.password === PASSWORD && userData.email === EMAIL){
+         setAccess(true);
+         navigate('/home');
+      }
+   }
+
+   //No permite que ingrese is access es false
+   //Prover este cambio de estado para revisar la pagina de login
+   useEffect(()=>{
+      !access && navigate('/');
+   },[access]);
+
+
    return (
       <div className='App'>
          <div>
-            <Nav 
-               onSearch={onSearch} 
-               onInsert={onInsert}
-            />
+            {location.pathname!='/' ?<Nav onSearch={onSearch} onInsert={onInsert}/> :null}
          </div>
-         <hr/>
          <div>
             <Routes>
                <Route exact path='/home' element={
@@ -111,9 +132,11 @@ function App() {
                />
                } />
                <Route exact path='/about' element={<About/>} />
-               <Route exact path='/detail/:id' element={<Detail/>}/>
-               <Route exact path='/notfound' element={<NotFound/>}/>
-               <Route exact path='*' element={<Navigate to="/notfound" replace/>}/>
+               <Route exact path='/favorites' element={<Favorites/>} />
+               <Route exact path='/detail/:id' element={<Detail/>} />
+               <Route exact path='/' element={<Form login={login}/>} />
+               <Route exact path='/notfound' element={<NotFound/>} />
+               <Route exact path='*' element={<Navigate to="/notfound" replace/>} />
             </Routes>
          </div>
       </div>
