@@ -3,13 +3,12 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom"
 import style from "./Detail.module.css"
 
-
 export default function Detail(prop){
     const {id} = useParams();
     console.log(id)
 
     const[character, setCharacter] = useState({})
-    
+
     useEffect(() => {
         // axios(`https://rickandmortyapi.com/api/character/${id}`)
         axios(`http://localhost:3001/rickandmorty/character/${id}`)
