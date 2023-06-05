@@ -104,13 +104,27 @@ function App() {
    const PASSWORD = "123456";
 
    const navigate = useNavigate();
-   
-   function login(userData){
-      if(userData.password === PASSWORD && userData.email === EMAIL){
-         setAccess(true);
-         navigate('/home');
-      }
+
+   function login(userData) {
+      const { email, password } = userData;
+      const URL = 'http://localhost:3001/rickandmorty/login/';
+      
+      // console.log("Nueva Funcion Login - antes de axios")
+      // console.log(URL + `?email=${email}&password=${password}`);
+      
+      axios(URL + `?email=${email}&password=${password}`).then(({ data }) => {
+         // console.log("Nueva funcion Login: ",data)
+         const { access } = data;
+         setAccess(data);
+         access && navigate('/home');
+      });
    }
+   // function login(userData){
+   //    if(userData.password === PASSWORD && userData.email === EMAIL){
+   //       setAccess(true);
+   //       navigate('/home');
+   //    }
+   // }
 
    //No permite que ingrese is access es false
    //Prover este cambio de estado para revisar la pagina de login
