@@ -32,7 +32,13 @@ const reducer = (state = initialState, action) => {
             // console.log("entra a caso REMOVE_FAV - payload: ",action.payload)
             return { ...state, myFavorites: action.payload };
         case FILTER:
-            const filterAllCharacters=state.allCharacters.filter((char)=>char.gender===action.payload)
+            let filterAllCharacters=[];
+            console.log("en reducer FILTER: ", action.payload)
+            if(action.payload==="All"){
+                filterAllCharacters=[...state.allCharacters];
+            }else{
+                filterAllCharacters=state.allCharacters.filter((char)=>char.gender===action.payload)
+            }
             return{
                 ...state,
                 myFavorites:filterAllCharacters, 

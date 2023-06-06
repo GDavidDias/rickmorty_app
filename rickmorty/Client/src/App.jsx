@@ -44,34 +44,52 @@ function App() {
    //7 - ahora on Search, ya no hardcodea un ejemplo, sino que
    //se conecta a la api para traer un personaje segun el 
    //id que le pasa el input al presiona el boton en searchbar
-   const onSearch = id=>{
+   const onSearch = async id=>{
 
       // axios(`https://rickandmortyapi.com/api/character/${id}`)
-      axios(`http://localhost:3001/rickandmorty/character/${id}`)
-      .then(({ data }) => {
-         if (data.name) {
+      // axios(`http://localhost:3001/rickandmorty/character/${id}`)
+      try{
+         const resp = await axios(`http://localhost:3001/rickandmorty/character/${id}`);
+         const {data} = resp;
+         
+         let guarda=true;
+            characters.forEach((pers)=>{
+               if(pers.id === id) guarda=false;
+            });
+            
+         guarda 
+            ?setCharacters((oldChars)=>[...oldChars, data])
+            :window.alert('Ya se encuentra')
+      
+      }catch(error){
+         window.alert('¡No hay personajes con este ID!')
+      }
 
-            //------------------------------
-            //EXTRA homework 03
-            //Para buscar el ID Y NO GUARDAR REPETIDOS
-            let guarda=true;
-            characters.forEach(pers=>{
-               if(pers.id == Number(id)){
-                  guarda = false;
-               } 
-            })
-            //console.log(guarda);            
-            if (guarda){
-               setCharacters((oldChars) => [...oldChars, data]);
-            }else{
-               window.alert('Ya se encuentra');
-            }
-            //----------------------------
 
-         } else {
-            window.alert('¡No hay personajes con este ID!');
-         }
-      });
+      // .then(({ data }) => {
+      //    if (data.name) {
+
+      //       //------------------------------
+      //       //EXTRA homework 03
+      //       //Para buscar el ID Y NO GUARDAR REPETIDOS
+      //       let guarda=true;
+      //       characters.forEach(pers=>{
+      //          if(pers.id == Number(id)){
+      //             guarda = false;
+      //          } 
+      //       })
+      //       //console.log(guarda);            
+      //       if (guarda){
+      //          setCharacters((oldChars) => [...oldChars, data]);
+      //       }else{
+      //          window.alert('Ya se encuentra');
+      //       }
+      //       //----------------------------
+
+      //    } else {
+      //       window.alert('¡No hay personajes con este ID!');
+      //    }
+      // });
       
       //4 - Creamos funcion onsearch
       //modifico estado characters, traer lo qeu tenia
@@ -89,7 +107,7 @@ function App() {
       //como el id que recibe por parametro es string
       //se parsea como number
       const characterfiltrados = characters.filter(
-         character => character.id != Number(id)
+         character => character.id != id
       );
       //cambio el estado de mi character y paso los
       //filtrados para que se actualice.
@@ -100,25 +118,36 @@ function App() {
    console.log("de App.jsx",location.pathname)
 
    const [access, setAccess] = useState(false)
-   const EMAIL = "gdd@gmail.com";
-   const PASSWORD = "123456";
+   // const EMAIL = "gdd@gmail.com";
+   // const PASSWORD = "123456";
 
    const navigate = useNavigate();
 
-   function login(userData) {
-      const { email, password } = userData;
-      const URL = 'http://localhost:3001/rickandmorty/login/';
-      
-      // console.log("Nueva Funcion Login - antes de axios")
-      // console.log(URL + `?email=${email}&password=${password}`);
-      
-      axios(URL + `?email=${email}&password=${password}`).then(({ data }) => {
-         // console.log("Nueva funcion Login: ",data)
-         const { access } = data;
+   async function login(userData){
+      const{email, password} = userData;
+      try{
+         const URL = 'http://localhost:3001/rickandmorty/login/';
+         const {data} = await axios(URL + `?email=${email}&password=${password}`);
+         const {access} = data;
+         //console.log(access)
          setAccess(data);
          access && navigate('/home');
-      });
+      }catch(error){
+         window.alert('error en login!')
+      }
    }
+
+   // function login(userData) {
+   //    const { email, password } = userData;
+   //    const URL = 'http://localhost:3001/rickandmorty/login/';
+      
+   //    axios(URL + `?email=${email}&password=${password}`)
+   //          .then(({ data }) => {
+   //             const { access } = data;
+   //             setAccess(data);
+   //             access && navigate('/home');
+   //          });
+   // }
    // function login(userData){
    //    if(userData.password === PASSWORD && userData.email === EMAIL){
    //       setAccess(true);

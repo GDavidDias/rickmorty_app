@@ -5,7 +5,7 @@ const postFav = function(req, res){
     // console.log("en postFav -char : ",char)
     myFavorites.push(char);
     // console.log("en postFav - myFavorites ", myFavorites)
-    res.status(200).json(myFavorites);
+    return res.status(200).json(myFavorites);
 };
 
 const deleteFav = function(req, res){

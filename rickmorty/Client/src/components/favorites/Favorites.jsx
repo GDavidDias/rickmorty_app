@@ -19,7 +19,7 @@ function Favorites (props){
         setAux(true);
     }
 
-    console.log("en Favorites: ",props.myFavorites[0])
+    // console.log("en Favorites: ",props.myFavorites[0])
     return (
         <div>
             <div >
@@ -28,6 +28,7 @@ function Favorites (props){
                     <option value="D">Descendente</option>
                 </select>
                 <select onChange={handleFilter}>
+                    <option value="All">All</option>
                     <option value="Male">Male</option>
                     <option value="Female">Female</option>
                     <option value="Genderless">Genderless</option>

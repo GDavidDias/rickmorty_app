@@ -1,6 +1,7 @@
 const router = require("./routes/index.js")
 const express = require("express");
 const server = express();
+const morgan=require("morgan");//no lo pide pero trae rutas
 const PORT = 3001;
 
 server.use((req, res, next) => {
@@ -18,6 +19,7 @@ server.use((req, res, next) => {
  });
 
 server.use(express.json());
+server.use(morgan("dev"));//para ver las rutas
 
 server.use("/rickandmorty",router);
 
