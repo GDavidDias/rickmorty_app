@@ -14,6 +14,10 @@ export const addFav = (character) =>{
             });
       }catch(error){
          window.alert('error en addFav');
+         return dispatch({
+            type:'ERROR',
+            payload:error.message
+         });
       }
    };
 };
@@ -53,6 +57,10 @@ export const removeFav = (id) => {
             });
          }catch(error){
             window.alert('error en removeFav');
+            return dispatch({
+               type:'ERROR',
+               payload:error.message
+            });            
          }
       };
 };

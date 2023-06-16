@@ -1,8 +1,9 @@
 import { ADD_FAV, FILTER, ORDER, REMOVE_FAV } from "./types";
 
 const initialState = {
-    myFavorites: [],
-    allCharacters:[]
+    myFavorites: [], //QUE RENDERIZO
+    allCharacters:[], //TODOS MIS FAVORITOS
+    errors:false
 }
 
 
@@ -19,7 +20,7 @@ const reducer = (state = initialState, action) => {
             // console.log("entra a casoo ADD_FAV - myFavorites ",state.myFavorites)
             return { 
                     ...state, 
-                    myFavorites: action.payload, allCharacters: action.payload 
+                    myFavorites: action.payload, allCharacters: action.payload , errors:false
                     //myFavorites:[...state.myFavorites, action.payload]
                 };
         case REMOVE_FAV:
@@ -30,7 +31,7 @@ const reducer = (state = initialState, action) => {
             // };
             // console.log("entra a caso REMOVE_FAV - myfavorites: ",state.myFavorites)
             // console.log("entra a caso REMOVE_FAV - payload: ",action.payload)
-            return { ...state, myFavorites: action.payload };
+            return { ...state, myFavorites: action.payload , errors:false};
         case FILTER:
             let filterAllCharacters=[];
             console.log("en reducer FILTER: ", action.payload)
@@ -56,6 +57,11 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 myFavorites:orderAllCharacters,
             };
+        case 'ERROR':
+            return{
+                ...state, errors: action.payload
+            };
+
         default: return {...state};
     }
 };

@@ -130,7 +130,7 @@ function App() {
          const {data} = await axios(URL + `?email=${email}&password=${password}`);
          const {access} = data;
          //console.log(access)
-         setAccess(data);
+         setAccess(access);
          access && navigate('/home');
       }catch(error){
          window.alert('error en login!')

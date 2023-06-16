@@ -1,30 +1,39 @@
-const router = require("./routes/index.js")
-const express = require("express");
-const server = express();
-const morgan=require("morgan");//no lo pide pero trae rutas
+// const router = require("./routes/index.js")
+// const express = require("express");
+// const server = express();
+// const morgan=require("morgan");//no lo pide pero trae rutas
+const server = require("./app.js");
 const PORT = 3001;
+//importo instancia de sequelize => "conn"
+const {conn} = require("./DB_connection.js")
 
-server.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Credentials', 'true');
-    res.header(
-       'Access-Control-Allow-Headers',
-       'Origin, X-Requested-With, Content-Type, Accept'
-    );
-    res.header(
-       'Access-Control-Allow-Methods',
-       'GET, POST, OPTIONS, PUT, DELETE'
-    );
-    next();
- });
+// server.use((req, res, next) => {
+//     res.header('Access-Control-Allow-Origin', '*');
+//     res.header('Access-Control-Allow-Credentials', 'true');
+//     res.header(
+//        'Access-Control-Allow-Headers',
+//        'Origin, X-Requested-With, Content-Type, Accept'
+//     );
+//     res.header(
+//        'Access-Control-Allow-Methods',
+//        'GET, POST, OPTIONS, PUT, DELETE'
+//     );
+//     next();
+//  });
 
-server.use(express.json());
-server.use(morgan("dev"));//para ver las rutas
+// server.use(express.json());
+// server.use(morgan("dev"));//para ver las rutas
 
-server.use("/rickandmorty",router);
+// server.use("/rickandmorty",router);
 
-server.listen(PORT,()=>{console.log(`Server listen in port: ${PORT}`)})
-
+//si se conecta a la BD entonces levanta el servidor
+conn.sync({force:true})
+  .then(()=>{
+    server.listen(PORT, () => {
+      console.log(`Server listen in port: ${PORT}`);
+    })
+  })
+  .catch(error=>console.log(error.message))
 
 
 //const data = require("./utils/data.js");
@@ -33,7 +42,7 @@ server.listen(PORT,()=>{console.log(`Server listen in port: ${PORT}`)})
 
 // http.createServer((req,res)=>{
 //     res.setHeader('Access-Control-Allow-Origin', '*');
-    
+
 //     console.log("de index.js Server: ",req.url)
 
 //     if(req.url.includes("/rickandmorty/character/")){
@@ -42,7 +51,6 @@ server.listen(PORT,()=>{console.log(`Server listen in port: ${PORT}`)})
 //         // control.getCharById(res,id);
 //         control.getCharById(res,id);
 //     }
-
 
 //     // if(req.url.includes("/rickandmorty/character/")){
 //     //     // console.log("entra a validacion server")

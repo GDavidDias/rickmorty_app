@@ -5,6 +5,7 @@ let control ={};
  control.getCharById = async function(req, res){
     let char ={};
     const {id} = req.params;
+    //*CON ASYNC-AWAIT
     try{
         const resp = await axios(URL+id);
         const{status,name,species,origin,image,gender} = resp.data;        
@@ -17,6 +18,7 @@ let control ={};
         return res.status(500).send(error.message)
     }
 
+    //*CON PROMESAS
     //axios.get(`${URL}${id}`) 
     // axios.get(URL+id) //viene de response.data
     //         .then(response => {
